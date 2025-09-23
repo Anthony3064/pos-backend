@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+          font-family: 'Helvetica', 'Arial', sans-serif;
+          background-color: #f4f4f7;
+          margin: 0;
+          padding: 0;
+          color: #333;
+        }
+        .container {
+          max-width: 700px;
+          margin: 30px auto;
+          background-color: #ffffff;
+          padding: 30px;
+          border-radius: 8px;
+          box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+        }
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 30px;
+        }
+        .header img {
+          max-height: 60px;
+        }
+        h1 {
+          color: #F69D1C;
+          font-size: 28px;
+          margin: 0;
+        }
+        .section-title {
+          font-size: 20px;
+          color: #F69D1C;
+          border-bottom: 2px solid #F69D1C;
+          padding-bottom: 5px;
+          margin-bottom: 15px;
+        }
+        .client-info, .invoice-info {
+          margin-bottom: 25px;
+        }
+        .client-info p, .invoice-info p {
+          margin: 4px 0;
+        }
+        .invoice-details {
+          margin-bottom: 25px;
+        }
+        .table-container {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch; /* smooth scrolling en iOS */
+          margin-top: 10px;
+        }
+        .invoice-details table {
+          width: 100%;
+          border-collapse: collapse;
+          min-width: 600px; /* asegura ancho mínimo */
+        }
+        .invoice-details th, .invoice-details td {
+          border: 1px solid #ddd;
+          padding: 10px;
+          text-align: left;
+        }
+        .invoice-details th {
+          background-color: #F69D1C;
+          color: #fff;
+        }
+        .totals {
+          margin-top: 20px;
+          text-align: right;
+        }
+        .totals p {
+          font-size: 18px;
+          margin: 5px 0;
+        }
+        .footer {
+          text-align: center;
+          margin-top: 40px;
+          color: #777;
+          font-size: 12px;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 600px) {
+          .header {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          h1 {
+            font-size: 24px;
+          }
+          .section-title {
+            font-size: 18px;
+          }
+          .invoice-details th, .invoice-details td {
+            font-size: 14px;
+            padding: 8px;
+          }
+          .totals p {
+            font-size: 16px;
+          }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img th:if="${logoExists}"  th:src="@{'cid:logoImage'}"
+             alt="Logo de la empresa">
+        <h1>Factura</h1>
+    </div>
+
+    <div class="invoice-info">
+        <p><strong>ID Factura:</strong> <span th:text="${invoice.id}">#9999999999</span></p>
+        <p><strong>Fecha:</strong> <span th:text="${invoice.date}">YYYY-MM-DD</span></p>
+        <p><strong>Medio de pago:</strong> <span th:text="${invoice.paymentMethod.description}">Método de pago</span></p>
+    </div>
+
+    <div class="client-info">
+        <div class="section-title">Cliente</div>
+        <p><strong>Nombre:</strong> <span th:text="${invoice.client.completeName}">Cliente</span></p>
+        <p><strong>Email:</strong> <span th:text="${invoice.client.email}">correo@cliente.com</span></p>
+        <p><strong>Teléfono:</strong> <span th:text="${invoice.client.phoneNumber}">9999-9999</span></p>
+    </div>
+
+    <div class="invoice-details">
+        <div class="section-title">Detalles de la factura</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Producto/Servicio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="detail : ${invoice.details}">
+                    <td th:text="${detail.item.code}">PROD-001</td>
+                    <td th:text="${detail.item.name}">TEST</td>
+                    <td th:text="${detail.amount}">1</td>
+                    <td th:text="${detail.subtotal}">4500.00</td>
+                    <td th:text="${detail.total}">4500.00</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="totals">
+        <p><strong>Subtotal:</strong> <span th:text="${invoice.subtotal}">4500.00</span></p>
+        <p><strong>Total:</strong> <span th:text="${invoice.total}">4500.00</span></p>
+    </div>
+
+    <div class="footer">
+        <p>
+            Gracias por su preferencia. <br>
+            <span th:text="${companyName}">Nombre  de la empresa</span> |
+            <span th:text="${companyAddress}">Dirección de la empresa</span> |
+            <span th:text="${companyPhone}">+000 0000-0000</span> |
+            <span th:text="${companyEmail}">correo@empresa.com</span>
+        </p>
+    </div>
+</div>
+</body>
+</html>

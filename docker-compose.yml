@@ -1,0 +1,40 @@
+services:
+  postgres-db:
+    image: postgres:16
+    container_name: pos-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_EXTERNAL_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  pos-backend-api:
+    build: .
+    container_name: pos-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: pos-db
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_SCHEMA: ${DB_SCHEMA}
+      SECRET_KEY: ${SECRET_KEY}
+      SEND_GRID_API_KEY: ${SEND_GRID_API_KEY}
+      SEND_GRID_FROM_EMAIL: ${SEND_GRID_FROM_EMAIL}
+      COMPANY_NAME: ${COMPANY_NAME}
+      COMPANY_ADDRESS: ${COMPANY_ADDRESS}
+      COMPANY_PHONE: ${COMPANY_PHONE}
+      COMPANY_EMAIL: ${COMPANY_EMAIL}
+      CONTEXT_PATH_URL: ${CONTEXT_PATH_URL}
+    depends_on:
+      - postgres-db
+
+volumes:
+  postgres_data:

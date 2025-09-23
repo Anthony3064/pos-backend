@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: pos-backend
+  config:
+    import: optional:file:.env[.properties]
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}?currentSchema=${DB_SCHEMA}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+  mail:
+    host: ${EMAIL_HOST}
+    port: ${EMAIL_PORT}
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+          ssl.trust: ${EMAIL_HOST}
+server:
+  servlet:
+    context-path: ${CONTEXT_PATH_URL}
+
+app:
+  secret-key: ${SECRET_KEY}
+  send-grid-key: ${SEND_GRID_API_KEY}
+  send-grid-from: ${SEND_GRID_FROM_EMAIL}
+
+  # Company information
+  company-name: ${COMPANY_NAME}
+  company-address: ${COMPANY_ADDRESS}
+  company-phone: ${COMPANY_PHONE}
+  company-email: ${COMPANY_EMAIL}

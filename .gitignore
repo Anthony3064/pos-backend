@@ -1,0 +1,52 @@
+HELP.md
+target/
+build/
+
+banner.txt
+logo.png
+
+### Maven wrapper ###
+# .mvn/wrapper/maven-wrapper.jar
+
+### Logs ###
+*.log
+*.out
+
+### Classes ###
+*.class
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Docker & OS ###
+*.pid
+*.seed
+*.tar
+*.bak
+*.tmp
+.DS_Store
+
+### Env files ###
+.env

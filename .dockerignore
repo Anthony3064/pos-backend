@@ -1,0 +1,28 @@
+# Archivos de construcción
+target
+build
+
+# Configuración IDE
+.idea
+.vscode
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.sts4-cache
+.springBeans
+
+# Archivos de sistema
+.DS_Store
+*.log
+*.out
+*.tmp
+
+# Git
+.git
+.gitignore
+
+# Archivos de entorno
+.env
