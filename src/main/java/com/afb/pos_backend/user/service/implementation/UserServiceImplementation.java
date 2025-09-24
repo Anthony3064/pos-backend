@@ -90,8 +90,8 @@ public class UserServiceImplementation implements UserService {
         if (user.getId() == null || user.getId().isBlank()) {
             throw new BadRequestException(String.format(MessageConstant.BAD_REQUEST_ERROR, "identificador del usuario"));
         }
-        boolean itemExists = repository.existsById(user.getId());
-        if (!itemExists) {
+        boolean userExists = repository.existsById(user.getId());
+        if (!userExists) {
             throw new NotFoundException(String.format(MessageConstant.NOT_FOUND_ERROR, "usuario"));
         }
         User userEntity = repository.save(mapper.map(user, User.class));
@@ -103,8 +103,8 @@ public class UserServiceImplementation implements UserService {
         if (uid == null || uid.isBlank()) {
             throw new BadRequestException(String.format(MessageConstant.BAD_REQUEST_ERROR, "identificador del usuario"));
         }
-        boolean itemExists = repository.existsById(uid);
-        if (!itemExists) {
+        boolean userExists = repository.existsById(uid);
+        if (!userExists) {
             throw new NotFoundException(String.format(MessageConstant.NOT_FOUND_ERROR, "usuario"));
         }
         int rowsAffected = repository.changeActive(uid, false);
