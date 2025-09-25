@@ -6,6 +6,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16+-blue.svg)](https://www.postgresql.org)
 [![Docker](https://img.shields.io/badge/Docker-20+-blue.svg)](https://www.docker.com)
 [![SendGrid](https://img.shields.io/badge/SendGrid-Email-blue.svg)](https://sendgrid.com)
+[![AWS SES](https://img.shields.io/badge/AWS%20SES-Email-orange.svg?logo=amazon-aws&logoColor=white)](https://aws.amazon.com/ses/)
 
 ## 📋 Descripción
 
@@ -29,7 +30,7 @@ API REST desarrollada en Spring Boot para gestión de punto de venta (POS). Sist
 - **Backend**: Spring Boot 3.2+, Java 17+, Maven
 - **Security**: Spring Security + JWT Authentication
 - **Base de Datos**: PostgreSQL 16
-- **Email Service**: SendGrid API
+- **Email Service**: SendGrid API / AWS SES API (Cualquiera de los dos se puede utilizar)
 - **Template Engine**: Thymeleaf (para plantillas de email)
 - **Containerización**: Docker & Docker Compose
 - **ORM**: Spring Data JPA / Hibernate
@@ -41,7 +42,7 @@ API REST desarrollada en Spring Boot para gestión de punto de venta (POS). Sist
 - Java 17+
 - Maven 3.8+
 - Docker & Docker Compose
-- Cuenta SendGrid (para envío de emails)
+- Cuenta SendGrid o AWS SES (para envío de correos)
 
 ### 1. Clonar el Repositorio
 
@@ -66,9 +67,15 @@ DB_PASSWORD=SecurePassword123!
 # SECURITY
 SECRET_KEY=mySecretJWTKeyForPOSApplication2024!
 
-# EMAIL SENDER
+# EMAIL SENDER Para SENDGRID
 SEND_GRID_API_KEY=SG.xxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxx
 SEND_GRID_FROM_EMAIL=noreply@miempresa.com (correo verificado en sendgrid)
+
+# EMAIL SENDER Para AWS SES
+AWS_ACCESS_KEY_ID=El ID de la llave de acceso de AWS
+AWS_SECRET_ACCESS_KEY=clave secreta de AWS
+AWS_REGION=Región del servicio de AWS por ejemplo: us-east-1
+AWS_FROM_EMAIL=noreply@miempresa.com (correo verificado en AWS SES)
 
 # COMPANY INFO
 COMPANY_NAME=Mi Empresa S.A.
@@ -130,6 +137,22 @@ java -jar target/pos-api-1.0.0.jar
 ```env
 SEND_GRID_API_KEY=tu_api_key_aqui
 SEND_GRID_FROM_EMAIL=tu_email_verificado@dominio.com
+```
+
+o 
+
+### Configuración AWS SES
+
+1. **Crear cuenta**: [AWS SES](https://aws.amazon.com/ses/)
+2. **Completar todos los pasos indicados:** Verificación de domio, correo, etc.
+3. **Generar los API Key correspondientes con:**: [IAM](https://aws.amazon.com/iam/)
+4. **Configurar** en `.env`:
+
+```env
+AWS_ACCESS_KEY_ID=El ID de la llave de acceso de AWS
+AWS_SECRET_ACCESS_KEY=clave secreta de AWS
+AWS_REGION=Región del servicio de AWS por ejemplo: us-east-1
+AWS_FROM_EMAIL=noreply@miempresa.com (correo verificado en AWS SES)
 ```
 
 ### Plantilla de Factura
@@ -244,6 +267,7 @@ curl -X POST http://localhost:8080/api/v1/auth/authenticate \
 
 - 🖼️ **Logo**: El archivo `static/logo.png` es opcional pero recomendado
 - 📧 **SendGrid**: Requiere verificación de dominio para producción
+- 📧 **AWS SES**: Requiere verificación de dominio para producción
 - 🗄️ **Base de datos**: Se inicializa automáticamente en primer arranque
 - 🔒 **JWT**: Tokens expiran según configuración (default: 15 minutos)
 - 🔒 **Refresh Token**: El refresh token expira según configuración (default: 7 días)
@@ -255,7 +279,7 @@ Este proyecto está bajo la licencia MIT. Ver [LICENSE](LICENSE) para más detal
 
 ## 👨‍💻 Autor
 
-**Tu Nombre**
+**Anthony Flores Boza**
 - GitHub: [@Anthony3064](https://github.com/Anthony3064)
 - LinkedIn: [Anthony Flores Boza](www.linkedin.com/in/anthony-flores-boza-1b0533212)
 - Email: anthonydevcr@gmail.com

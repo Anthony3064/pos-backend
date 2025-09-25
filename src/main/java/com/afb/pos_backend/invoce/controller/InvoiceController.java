@@ -1,7 +1,6 @@
 package com.afb.pos_backend.invoce.controller;
 
-import com.afb.pos_backend.common.constant.MessageConstant;
-import com.afb.pos_backend.common.email.service.EmailServiceAWS;
+import com.afb.pos_backend.common.email.service.EmailSenderService;
 import com.afb.pos_backend.invoce.dto.InvoiceDTO;
 import com.afb.pos_backend.invoce.service.InvoiceService;
 import jakarta.validation.Valid;
@@ -23,7 +22,7 @@ import java.util.Map;
 @Log4j2
 public class InvoiceController {
     private final InvoiceService service;
-    private final EmailServiceAWS emailService;
+    private final EmailSenderService emailService;
 
     // For emails
     private final String companyName;
@@ -31,7 +30,7 @@ public class InvoiceController {
     private final String companyPhone;
     private final String companyEmail;
 
-    public InvoiceController(InvoiceService service, EmailServiceAWS emailService, @Value("${app.company-name}") String companyName, @Value("${app.company-address}") String companyAddress, @Value("${app.company-phone}") String companyPhone, @Value("${app.company-email}") String companyEmail) {
+    public InvoiceController(InvoiceService service, EmailSenderService emailService, @Value("${app.company-name}") String companyName, @Value("${app.company-address}") String companyAddress, @Value("${app.company-phone}") String companyPhone, @Value("${app.company-email}") String companyEmail) {
         this.service = service;
         this.emailService = emailService;
 
@@ -96,16 +95,13 @@ public class InvoiceController {
         context.setVariable("companyAddress", companyAddress);
         context.setVariable("companyPhone", companyPhone);
         context.setVariable("companyEmail", companyEmail);
-        try {
-            emailService.sendHtmlEmailWithLogo(
-                    invoice.getClient().getEmail(),
-                    "Factura #" + invoice.getId(),
-                    "invoice",
-                    context
-            );
-        } catch (Exception e) {
-            log.error(String.format(MessageConstant.ERROR_MESSAGE_SEND_HTML_EMAIL, "la factura #" + invoice.getId(), "el correo " + invoice.getClient().getEmail()), e.getMessage());
-        }
+
+        emailService.sendEmailWithLogo(
+                invoice.getClient().getEmail(),
+                "Factura #" + invoice.getId(),
+                "invoice",
+                context
+        );
     }
 
 }

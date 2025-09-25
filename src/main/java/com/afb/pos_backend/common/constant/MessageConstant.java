@@ -13,7 +13,17 @@ public class MessageConstant {
     public static final String BAD_REQUEST_TYPE_ITEM = "El tipo de artículo %s no es permitido.";
 
     // Message error send email
-    public static final String ERROR_MESSAGE_SEND_HTML_EMAIL = "Error al intentar enviar %s a %s";
+    public static final String ERROR_MESSAGE_SEND_HTML_EMAIL = "Error al intentar enviar el correo para {}: {}";
+    public static final String ERROR_MESSAGE_SEND_HTML_EMAIL_WITH_LOGO = "Error al intentar enviar el correo con logo para {}: {}";
+
+    // Message success send email
+    public static final String SUCCESS_SENDGRID_MESSAGE_SEND_HTML_EMAIL = "Correo con contenido html enviado correctamente. Status Code: {}, response: {}, header: {}";
+    public static final String SUCCESS_SENDGRID_MESSAGE_SEND_HTML_EMAIL_WITH_LOGO = "Correo con contenido html y logo enviado correctamente.Status Code: {}, response: {}, header: {}";
+
+    public static final String SUCCESS_AWS_SES_MESSAGE_SEND_HTML_EMAIL = "Correo con contenido html enviado correctamente a {}.";
+    public static final String SUCCESS_AWS_SES_MESSAGE_SEND_HTML_EMAIL_WITH_LOGO = "Correo con contenido html y logo enviado correctamente a {}.";
 
     public static final String NO_STOCK_ERROR_MESSAGE = "No hay inventario suficiente para el producto \"%s\".";
+
+
 }
