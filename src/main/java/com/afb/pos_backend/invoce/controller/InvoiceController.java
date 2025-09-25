@@ -1,7 +1,7 @@
 package com.afb.pos_backend.invoce.controller;
 
 import com.afb.pos_backend.common.constant.MessageConstant;
-import com.afb.pos_backend.common.email.service.EmailService;
+import com.afb.pos_backend.common.email.service.EmailServiceAWS;
 import com.afb.pos_backend.invoce.dto.InvoiceDTO;
 import com.afb.pos_backend.invoce.service.InvoiceService;
 import jakarta.validation.Valid;
@@ -23,7 +23,7 @@ import java.util.Map;
 @Log4j2
 public class InvoiceController {
     private final InvoiceService service;
-    private final EmailService emailService;
+    private final EmailServiceAWS emailService;
 
     // For emails
     private final String companyName;
@@ -31,7 +31,7 @@ public class InvoiceController {
     private final String companyPhone;
     private final String companyEmail;
 
-    public InvoiceController(InvoiceService service, EmailService emailService, @Value("${app.company-name}") String companyName, @Value("${app.company-address}") String companyAddress, @Value("${app.company-phone}") String companyPhone, @Value("${app.company-email}") String companyEmail) {
+    public InvoiceController(InvoiceService service, EmailServiceAWS emailService, @Value("${app.company-name}") String companyName, @Value("${app.company-address}") String companyAddress, @Value("${app.company-phone}") String companyPhone, @Value("${app.company-email}") String companyEmail) {
         this.service = service;
         this.emailService = emailService;
 

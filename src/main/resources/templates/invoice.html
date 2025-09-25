@@ -124,7 +124,7 @@
         <div class="section-title">Cliente</div>
         <p><strong>Nombre:</strong> <span th:text="${invoice.client.completeName}">Cliente</span></p>
         <p><strong>Email:</strong> <span th:text="${invoice.client.email}">correo@cliente.com</span></p>
-        <p><strong>Teléfono:</strong> <span th:text="${invoice.client.phoneNumber}">9999-9999</span></p>
+        <p th:if="${invoice.client.phoneNumber != null}"><strong>Teléfono:</strong> <span th:text="${invoice.client.phoneNumber}">9999-9999</span></p>
     </div>
 
     <div class="invoice-details">

@@ -37,6 +37,10 @@ app:
   secret-key: ${SECRET_KEY}
   send-grid-key: ${SEND_GRID_API_KEY}
   send-grid-from: ${SEND_GRID_FROM_EMAIL}
+  aws:
+    region: ${AWS_REGION}
+    ses:
+      from: ${AWS_FROM_EMAIL}
 
   # Company information
   company-name: ${COMPANY_NAME}
